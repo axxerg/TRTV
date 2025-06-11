@@ -1,15 +1,14 @@
-name: Stream M3U8 Generator
+name: Generate output.m3u8
 
 on:
-  workflow_dispatch:    # Manuell auslösbar
-  push:                 # Bei jedem Push ins Repository
+  workflow_dispatch:
+  push:
     branches:
-      - main            # Passe ggf. den Branchnamen an
+      - main
 
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,16 +16,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # Oder deine gewünschte Version
+          python-version: '3.11'
 
       - name: Install yt-dlp
         run: pip install yt-dlp
 
-      - name: Run script
-        run: python test.py  # Passe den Dateinamen an
+      - name: Run your script
+        run: python dein_scriptname.py  # Passe den Namen deines Scripts an!
 
-      - name: Upload result
+      - name: Upload output.m3u8
         uses: actions/upload-artifact@v4
         with:
-          name: m3u8-output
-          path: streams.m3u8
+          name: output.m3u8
+          path: output.m3u8
