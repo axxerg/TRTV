@@ -1,6 +1,3 @@
-import requests
-
-# Liste der Streams mit Namen und URLs
 streams = [
     {"name": "SHOW TURK", "url": "https://www.youtube.com/watch?v=XnvS-RZa4Qw"},
     {"name": "STAR", "url": "https://www.youtube.com/watch?v=82O6yOy_XwE&vq=1080"},
@@ -24,20 +21,13 @@ streams = [
     {"name": "SÖZCÜ TV", "url": "https://www.youtube.com/watch?v=ztmY_cCtUl0"}
 ]
 
-def check_streams(streams):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-    }
-
-    for stream in streams:
-        try:
-            response = requests.get(stream["url"], headers=headers, timeout=10)
-            if response.status_code == 200:
-                print(f"{stream['name']}: Online ✅")
-            else:
-                print(f"{stream['name']}: Fehler ❌ (Statuscode: {response.status_code})")
-        except requests.RequestException as e:
-            print(f"{stream['name']}: Verbindungsfehler ❌ ({e})")
+def write_m3u8(streams, filename="streams.m3u8"):
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("#EXTM3U\n")
+        for stream in streams:
+            f.write(f"#EXTINF:-1,{stream['name']}\n")
+            f.write(f"{stream['url']}\n")
 
 if __name__ == "__main__":
-    check_streams(streams)
+    write_m3u8(streams)
+    print("streams.m3u8 wurde erstellt.")
