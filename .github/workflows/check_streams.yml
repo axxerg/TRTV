@@ -22,7 +22,7 @@ jobs:
         run: pip install yt-dlp
 
       - name: Run your script
-        run: python dein_scriptname.py  # Passe den Namen deines Scripts an!
+        run: python test.py  # Passe den Namen deines Scripts an!
 
       - name: Upload output.m3u8
         uses: actions/upload-artifact@v4
