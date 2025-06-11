@@ -1,4 +1,4 @@
-name: Generate streams.m3u and commit
+name: Generate and commit streams.m3u
 
 on:
   workflow_dispatch:
@@ -22,14 +22,14 @@ jobs:
         run: pip install yt-dlp
 
       - name: Run script
-        run: python test.py
+        run: python test.py  # Passe den Dateinamen an!
 
-      - name: Commit changes
+      - name: Commit and push streams.m3u
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add streams.m3u
-          git commit -m "Update streams.m3u8" || echo "No changes to commit"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add streams.m3u8
+          git commit -m "Update streams.m3u8 [bot]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
